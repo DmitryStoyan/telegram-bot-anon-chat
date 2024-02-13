@@ -6,7 +6,17 @@ const helpHandler = require("./handlers/helpHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
 const { forwardMessage } = require("./forwardMessage");
 const botCommands = require("./botCommands");
+const User = require("./models/users.js");
 require("dotenv").config();
+
+const mongoose = require("mongoose");
+const db = `mongodb+srv://dimastamc:${process.env.MONGODB_PASS}@anon-chat.igecksd.mongodb.net/anon-chat?retryWrites=true&w=majority`;
+
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((res) => console.log("Connected to DB"))
+  .catch((error) => console.log(error));
+
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 bot.telegram.setMyCommands(botCommands);

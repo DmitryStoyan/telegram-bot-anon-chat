@@ -1,35 +1,31 @@
 const { Telegraf } = require("telegraf");
-const { startHandler, nextHandler, stopHandler } = require("./handlers");
+const startHandler = require("./handlers/startHandler");
+const nextHandler = require("./handlers/nextHandler");
+const stopHandler = require("./handlers/stopHandler");
+const helpHandler = require("./handlers/helpHandler");
+const developmentHandler = require("./handlers/developmentHandlers");
 const { forwardMessage } = require("./forwardMessage");
+const botCommands = require("./botCommands");
 require("dotenv").config();
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
-bot.telegram.setMyCommands([
-  { command: "/search", description: "🔎 Поиск собеседника" },
-  {
-    command: "/next",
-    description: "🆕 Закончить диалог и искать нового собеседника",
-  },
-  { command: "/stop", description: "🔴 Закончить диалог с собеседником" },
-  { command: "/interests", description: "⭐ Выбрать интересы" },
-  { command: "/help", description: "🆘 Помощь по боту" },
-  { command: "/pay", description: "👑 Поиск по полу" },
-  { command: "/vip", description: "💎 Стать VIP-пользователем" },
-  {
-    command: "/link",
-    description: "🔗 Отправить ссылку на ваш Телеграм собеседнику",
-  },
-  {
-    command: "/settings",
-    description: "⚙️ Настройки пола, возраста и технические настройки",
-  },
-  { command: "/rules", description: "📄 Правила общения в чате" },
-]);
+bot.telegram.setMyCommands(botCommands);
 
 bot.start(startHandler);
 
+bot.command("search", (ctx) => {
+  ctx.reply("Функция в разработке");
+});
 bot.command("next", nextHandler);
 bot.command("stop", stopHandler);
+bot.command("interests", developmentHandler);
+bot.command("help", helpHandler);
+
+bot.command("pay", developmentHandler);
+bot.command("vip", developmentHandler);
+bot.command("link", developmentHandler);
+bot.command("settings", developmentHandler);
+bot.command("rules", developmentHandler);
 
 bot.hears("🚀 Начать поиск собеседника", nextHandler);
 bot.hears("🔎 Поиск собеседника по полу", (ctx) => {

@@ -6,6 +6,12 @@ const helpHandler = require("./handlers/helpHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
 const settingsHandler = require("./handlers/settingsHandler.js");
 const { forwardMessage } = require("./forwardMessage");
+const {
+  handleGenderSelection,
+  handleMaleSelection,
+  handleFemaleSelection,
+  handleDeleteGenderSelection,
+} = require("./handlers/genderSelectionHandler.js");
 const botCommands = require("./botCommands");
 const User = require("./models/users.js");
 require("dotenv").config();
@@ -42,6 +48,11 @@ bot.hears("🚀 Начать поиск собеседника", nextHandler);
 bot.hears("🔎 Поиск собеседника по полу", (ctx) => {
   ctx.reply("Эта функция еще в разработке.");
 });
+
+bot.action("gender", handleGenderSelection);
+bot.action("male", handleMaleSelection);
+bot.action("female", handleFemaleSelection);
+bot.action("delete_gender", handleDeleteGenderSelection);
 
 bot.on("message", forwardMessage);
 

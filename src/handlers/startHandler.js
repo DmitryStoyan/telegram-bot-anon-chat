@@ -29,5 +29,3 @@ async function startHandler(ctx) {
 }
 
 module.exports = startHandler;
-
-module.exports = startHandler;

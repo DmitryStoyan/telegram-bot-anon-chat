@@ -9,4 +9,11 @@ function getMainKeyboard() {
     .resize();
 }
 
-module.exports = { getMainKeyboard };
+function getSettingsKeyboard() {
+  return Markup.inlineKeyboard([
+    [Markup.button.callback("Пол", "gender")],
+    [Markup.button.callback("Возраст", "age")],
+  ]);
+}
+
+module.exports = { getMainKeyboard, getSettingsKeyboard };

@@ -4,6 +4,7 @@ const nextHandler = require("./handlers/nextHandler");
 const stopHandler = require("./handlers/stopHandler");
 const helpHandler = require("./handlers/helpHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
+const settingsHandler = require("./handlers/settingsHandler.js");
 const { forwardMessage } = require("./forwardMessage");
 const botCommands = require("./botCommands");
 const User = require("./models/users.js");
@@ -34,7 +35,7 @@ bot.command("help", helpHandler);
 bot.command("pay", developmentHandler);
 bot.command("vip", developmentHandler);
 bot.command("link", developmentHandler);
-bot.command("settings", developmentHandler);
+bot.command("settings", settingsHandler);
 bot.command("rules", developmentHandler);
 
 bot.hears("🚀 Начать поиск собеседника", nextHandler);

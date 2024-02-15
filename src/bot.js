@@ -5,6 +5,7 @@ const stopHandler = require("./handlers/stopHandler");
 const helpHandler = require("./handlers/helpHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
 const settingsHandler = require("./handlers/settingsHandler.js");
+const { handleAgeSelection } = require("./handlers/ageSelectionHandler.js");
 const { forwardMessage } = require("./forwardMessage");
 const {
   handleGenderSelection,
@@ -53,8 +54,34 @@ bot.action("gender", handleGenderSelection);
 bot.action("male", handleMaleSelection);
 bot.action("female", handleFemaleSelection);
 bot.action("delete_gender", handleDeleteGenderSelection);
+bot.action("age", handleAgeSelection);
+bot.action("back", settingsHandler);
 
 bot.on("message", forwardMessage);
+
+// Промежуточный обработчик ошибок в Telegraf:
+bot.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (error) {
+    console.error("Ошибка при обработке сообщения:", error);
+    await ctx.reply("Произошла ошибка. Пожалуйста, попробуйте снова.");
+  }
+});
+
+// Глобальная обработка необработанных исключений и отклоненных промисов:
+process.on("uncaughtException", (error) => {
+  console.error("Необработанное исключение:", error);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error(
+    "Необработанный отклоненный промис:",
+    promise,
+    "причина:",
+    reason
+  );
+});
 
 bot.launch();
 

@@ -6,6 +6,8 @@ const usersSchema = new Schema({
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
   username: { type: String, required: false },
+  gender: { type: String, required: false },
+  age: { type: Number, required: false },
   createdAt: { type: Date, default: Date.now },
 });
 

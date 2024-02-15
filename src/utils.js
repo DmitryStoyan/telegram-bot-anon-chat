@@ -18,10 +18,25 @@ function getSettingsKeyboard() {
 
 function getGenderKeyboard() {
   return Markup.inlineKeyboard([
-    [Markup.button.callback("Я парень 👨", "male")],
-    [Markup.button.callback("Я девушка 👩", "female")],
+    [
+      Markup.button.callback("Я парень 👨", "male"),
+      Markup.button.callback("Я девушка 👩", "female"),
+    ],
     [Markup.button.callback("Удалить пол", "delete_gender")],
+    [Markup.button.callback("← Назад", "back")],
   ]);
 }
 
-module.exports = { getMainKeyboard, getSettingsKeyboard, getGenderKeyboard };
+function getAgeKeyboard() {
+  return Markup.inlineKeyboard([
+    [Markup.button.callback("Удалить возраст", "delete_age")],
+    [Markup.button.callback("← Назад", "back")],
+  ]);
+}
+
+module.exports = {
+  getMainKeyboard,
+  getSettingsKeyboard,
+  getGenderKeyboard,
+  getAgeKeyboard,
+};

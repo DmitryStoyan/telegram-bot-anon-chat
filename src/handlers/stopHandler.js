@@ -1,4 +1,3 @@
-// stopHandler.js
 const { Markup } = require("telegraf");
 const { removePair, waitingUsers } = require("../pairManagement");
 const { getMainKeyboard } = require("../utils");

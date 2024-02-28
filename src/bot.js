@@ -5,6 +5,7 @@ const stopHandler = require("./handlers/stopHandler");
 const helpHandler = require("./handlers/helpHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
 const settingsHandler = require("./handlers/settingsHandler.js");
+const { handleAgeInput } = require("./handlers/ageInputHandler");
 const { handleAgeSelection } = require("./handlers/ageSelectionHandler.js");
 const { forwardMessage } = require("./forwardMessage");
 const {
@@ -28,6 +29,10 @@ mongoose
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 bot.telegram.setMyCommands(botCommands);
+
+const userState = {};
+// Добавляем userState в контекст Telegraf
+bot.context.userState = userState;
 
 bot.start(startHandler);
 
@@ -57,7 +62,28 @@ bot.action("delete_gender", handleDeleteGenderSelection);
 bot.action("age", handleAgeSelection);
 bot.action("back", settingsHandler);
 
-bot.on("message", forwardMessage);
+// bot.on("message", forwardMessage);
+
+// bot.on("message", (ctx) => {
+//   handleAgeInput(ctx, userState).catch((error) => {
+//     console.error("Ошибка при обработке ввода возраста:", error);
+//     ctx.reply("Произошла ошибка. Пожалуйста, попробуйте снова.");
+//   });
+// });
+
+bot.on("message", async (ctx) => {
+  // Проверка условия для переадресации сообщения
+  if (ctx.userState[ctx.from.id] && ctx.userState[ctx.from.id].awaitingAge) {
+    try {
+      await handleAgeInput(ctx, userState);
+    } catch (error) {
+      console.error("Ошибка при обработке ввода возраста:", error);
+      ctx.reply("Произошла ошибка. Пожалуйста, попробуйте снова.");
+    }
+  } else {
+    forwardMessage(ctx);
+  }
+});
 
 // Промежуточный обработчик ошибок в Telegraf:
 bot.use(async (ctx, next) => {

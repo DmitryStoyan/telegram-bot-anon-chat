@@ -62,15 +62,6 @@ bot.action("delete_gender", handleDeleteGenderSelection);
 bot.action("age", handleAgeSelection);
 bot.action("back", settingsHandler);
 
-// bot.on("message", forwardMessage);
-
-// bot.on("message", (ctx) => {
-//   handleAgeInput(ctx, userState).catch((error) => {
-//     console.error("Ошибка при обработке ввода возраста:", error);
-//     ctx.reply("Произошла ошибка. Пожалуйста, попробуйте снова.");
-//   });
-// });
-
 bot.on("message", async (ctx) => {
   // Проверка условия для переадресации сообщения
   if (ctx.userState[ctx.from.id] && ctx.userState[ctx.from.id].awaitingAge) {

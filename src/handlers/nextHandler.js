@@ -3,8 +3,8 @@ const {
   findPairForUser,
   waitingUsers,
   removePair,
+  pairs,
 } = require("../pairManagement");
-const { stopHandler } = require("./stopHandler");
 const { getMainKeyboard } = require("../utils");
 
 function nextHandler(ctx) {
@@ -27,9 +27,18 @@ function nextHandler(ctx) {
     // Добавляем пользователя в список ожидающих, если он там еще не находится
     const currentUser = { id: userId, name: ctx.from.username };
     waitingUsers.push(currentUser);
-    ctx.reply("Поиск нового собеседника...", getMainKeyboard());
-    // Пытаемся найти пару сразу после добавления в список ожидающих
-    findPairForUser(ctx, currentUser);
+
+    // Вызываем функцию findPairForUser и обрабатываем результат
+    findPairForUser(ctx, currentUser)
+      .then((pairFound) => {
+        if (!pairFound) {
+          ctx.reply("Поиск нового собеседника...", getMainKeyboard());
+        }
+      })
+      .catch((error) => {
+        console.error("Ошибка при поиске пары для пользователя:", error);
+        ctx.reply("Произошла ошибка. Пожалуйста, попробуйте снова.");
+      });
   } else {
     // Если пользователь уже в очереди, напоминаем ему об этом
     ctx.reply("Вы уже в очереди, ожидайте подключения собеседника.");

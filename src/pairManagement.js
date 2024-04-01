@@ -4,23 +4,30 @@ let waitingUsers = [];
 let pairs = {};
 
 function findPairForUser(ctx, currentUser) {
-  const userIndex = waitingUsers.findIndex((u) => u.id !== currentUser.id);
-  if (userIndex !== -1) {
-    const pairUser = waitingUsers[userIndex];
-    waitingUsers.splice(userIndex, 1);
+  return new Promise((resolve, reject) => {
+    const userIndex = waitingUsers.findIndex((u) => u.id !== currentUser.id);
+    if (userIndex !== -1) {
+      const pairUser = waitingUsers[userIndex];
+      waitingUsers.splice(userIndex, 1);
 
-    pairs[currentUser.id] = pairUser.id;
-    pairs[pairUser.id] = currentUser.id;
+      pairs[currentUser.id] = pairUser.id;
+      pairs[pairUser.id] = currentUser.id;
 
-    // Уведомляем обоих пользователей о соединении
-    const message =
-      "Собеседник найден! Начните общение.\n\nЧтобы закончить разговор, отправьте команду /stop.\nЧтобы сменить собеседника, отправьте команду /next.";
-    ctx.telegram.sendMessage(currentUser.id, message, Markup.removeKeyboard());
-    ctx.telegram.sendMessage(pairUser.id, message, Markup.removeKeyboard());
+      // Уведомляем обоих пользователей о соединении
+      const message =
+        "Собеседник найден! Начните общение.\n\nЧтобы закончить разговор, отправьте команду /stop.\nЧтобы сменить собеседника, отправьте команду /next.";
+      ctx.telegram.sendMessage(
+        currentUser.id,
+        message,
+        Markup.removeKeyboard()
+      );
+      ctx.telegram.sendMessage(pairUser.id, message, Markup.removeKeyboard());
 
-    return true;
-  }
-  return false;
+      resolve(true); // Пара найдена, успешно завершаем промис
+    } else {
+      resolve(false); // Пара не найдена, успешно завершаем промис
+    }
+  });
 }
 
 function removePair(userId) {

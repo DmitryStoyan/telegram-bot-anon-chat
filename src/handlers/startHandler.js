@@ -5,6 +5,7 @@ const User = require("../models/users.js");
 async function startHandler(ctx) {
   const telegramUser = ctx.update.message.from;
   try {
+    console.log("Telegram User ID:", telegramUser.id.toString());
     const user = await User.findOne({ userId: telegramUser.id.toString() });
     if (!user) {
       const newUser = new User({

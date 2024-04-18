@@ -33,10 +33,18 @@ function getAgeKeyboard() {
     [Markup.button.callback("← Назад", "back")],
   ]);
 }
+function getVipKeyboard() {
+  return Markup.inlineKeyboard([
+    [Markup.button.callback("приобрести VIP", "buy_vip")],
+    [Markup.button.callback("← отменить", "cancel_vip")],
+  ]);
+}
+
 
 module.exports = {
   getMainKeyboard,
   getSettingsKeyboard,
   getGenderKeyboard,
   getAgeKeyboard,
+  getVipKeyboard,
 };

@@ -19,6 +19,11 @@ const User = require("./models/users.js");
 require("dotenv").config();
 
 const mongoose = require("mongoose");
+// const { createPayment, vipHandler } = require("./handlers/vipHandler2.js");
+const vipHandler = require("./handlers/vipHandler.js");
+const stopVipHandler = require("./handlers/stopVipHandler.js");
+const createPaymentHandler = require("./handlers/createPaymentHandler.js");
+const getInvoice = require("./utils/getInvoice.js");
 const db = `mongodb+srv://dimastamc:${process.env.MONGODB_PASS}@anon-chat.igecksd.mongodb.net/anon-chat?retryWrites=true&w=majority`;
 
 mongoose
@@ -45,13 +50,14 @@ bot.command("interests", developmentHandler);
 bot.command("help", helpHandler);
 
 bot.command("pay", developmentHandler);
-bot.command("vip", developmentHandler);
+bot.command("vip", vipHandler);
 bot.command("link", developmentHandler);
 bot.command("settings", settingsHandler);
 bot.command("rules", developmentHandler);
 
 bot.hears("🚀 Начать поиск собеседника", nextHandler);
 bot.hears("🔎 Поиск собеседника по полу", (ctx) => {
+  console.log(ctx);
   ctx.reply("Эта функция еще в разработке.");
 });
 
@@ -61,6 +67,23 @@ bot.action("female", handleFemaleSelection);
 bot.action("delete_gender", handleDeleteGenderSelection);
 bot.action("age", handleAgeSelection);
 bot.action("back", settingsHandler);
+bot.action("cancel_vip", stopVipHandler);
+bot.action("buy_vip", (ctx) => {
+  return ctx.replyWithInvoice(getInvoice(ctx.from.id));
+});
+
+// это для теста
+bot.on("pre_checkout_query", (ctx) => ctx.answerPreCheckoutQuery(true));
+bot.on("successful_payment", async (ctx, next) => {
+  // ответ в случае положительной оплаты
+  const updatedUser = await User.findOneAndUpdate(
+    { userId: ctx.from.id },
+    { $set: { isVip: true } },
+    { upsert: true, new: true }
+  );
+  // console.log(updatedUser)
+  await ctx.reply("SuccessfulPayment");
+});
 
 bot.on("message", async (ctx) => {
   // Проверка условия для переадресации сообщения

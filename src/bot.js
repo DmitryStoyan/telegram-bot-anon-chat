@@ -82,7 +82,7 @@ bot.on("successful_payment", async (ctx, next) => {
     { upsert: true, new: true }
   );
   // console.log(updatedUser)
-  await ctx.reply("SuccessfulPayment");
+  await ctx.reply("Поздравляем! VIP статус успешно оплачен.");
 });
 
 bot.on("message", async (ctx) => {

@@ -27,6 +27,17 @@ function getGenderKeyboard() {
   ]);
 }
 
+function getSelectGenderKeyboard() {
+  return Markup.inlineKeyboard([
+    [
+      Markup.button.callback("Искать парней 👨", "selectMale"),
+      Markup.button.callback("Искать девушек 👩", "selectFemale"),
+    ],
+    [Markup.button.callback("Удалить приоритет поиска", "delete_selectGender")],
+    [Markup.button.callback("← Назад", "backPay")],
+  ]);
+}
+
 function getAgeKeyboard() {
   return Markup.inlineKeyboard([
     [Markup.button.callback("Удалить возраст", "delete_age")],
@@ -40,11 +51,11 @@ function getVipKeyboard() {
   ]);
 }
 
-
 module.exports = {
   getMainKeyboard,
   getSettingsKeyboard,
   getGenderKeyboard,
   getAgeKeyboard,
   getVipKeyboard,
+  getSelectGenderKeyboard,
 };

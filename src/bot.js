@@ -3,6 +3,7 @@ const startHandler = require("./handlers/startHandler");
 const nextHandler = require("./handlers/nextHandler");
 const stopHandler = require("./handlers/stopHandler");
 const helpHandler = require("./handlers/helpHandler");
+const payHandler = require("./handlers/payHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
 const settingsHandler = require("./handlers/settingsHandler.js");
 const { handleAgeInput } = require("./handlers/ageInputHandler");
@@ -49,7 +50,7 @@ bot.command("stop", stopHandler);
 bot.command("interests", developmentHandler);
 bot.command("help", helpHandler);
 
-bot.command("pay", developmentHandler);
+bot.command("pay", payHandler);
 bot.command("vip", vipHandler);
 bot.command("link", developmentHandler);
 bot.command("settings", settingsHandler);

@@ -15,6 +15,11 @@ const {
   handleFemaleSelection,
   handleDeleteGenderSelection,
 } = require("./handlers/genderSelectionHandler.js");
+const {
+  handleSelectMaleSelection,
+  handleSelectFemaleSelection,
+  handleDeleteSearchGenderSelection,
+} = require("./handlers/searchByGenderHandler.js");
 const botCommands = require("./botCommands");
 const User = require("./models/users.js");
 require("dotenv").config();
@@ -72,6 +77,10 @@ bot.action("cancel_vip", stopVipHandler);
 bot.action("buy_vip", (ctx) => {
   return ctx.replyWithInvoice(getInvoice(ctx.from.id));
 });
+bot.action("selectMale", handleSelectMaleSelection);
+bot.action("selectFemale", handleSelectFemaleSelection);
+bot.action("delete_selectGender", handleDeleteSearchGenderSelection);
+bot.action("backPay", developmentHandler);
 
 // это для теста
 bot.on("pre_checkout_query", (ctx) => ctx.answerPreCheckoutQuery(true));

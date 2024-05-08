@@ -74,7 +74,6 @@ async function handleDeleteSearchGenderSelection(ctx) {
 }
 
 module.exports = {
-  handleGenderSelection,
   handleSelectMaleSelection,
   handleSelectFemaleSelection,
   handleDeleteSearchGenderSelection,

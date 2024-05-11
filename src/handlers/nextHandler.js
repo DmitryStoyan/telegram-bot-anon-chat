@@ -9,6 +9,15 @@ const { getMainKeyboard } = require("../utils");
 
 function nextHandler(ctx) {
   const userId = ctx.from.id;
+
+  // Проверка, что пользователь и его пара находятся в текущей паре
+  if (pairs[userId] && pairs[pairs[userId]]) {
+    ctx.reply(
+      "Вы не можете подключиться или отправить сообщение в уже существующую пару."
+    );
+    return;
+  }
+
   // Удаление текущей пары
   const pairId = removePair(userId);
 

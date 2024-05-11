@@ -10,20 +10,25 @@ function findPairForUser(ctx, currentUser) {
       const pairUser = waitingUsers[userIndex];
       waitingUsers.splice(userIndex, 1);
 
-      pairs[currentUser.id] = pairUser.id;
-      pairs[pairUser.id] = currentUser.id;
+      // Проверка наличия текущего пользователя и потенциального партнера в уже существующей паре
+      if (!pairs[currentUser.id] && !pairs[pairUser.id]) {
+        pairs[currentUser.id] = pairUser.id;
+        pairs[pairUser.id] = currentUser.id;
 
-      // Уведомляем обоих пользователей о соединении
-      const message =
-        "Собеседник найден! Начните общение.\n\nЧтобы закончить разговор, отправьте команду /stop.\nЧтобы сменить собеседника, отправьте команду /next.";
-      ctx.telegram.sendMessage(
-        currentUser.id,
-        message,
-        Markup.removeKeyboard()
-      );
-      ctx.telegram.sendMessage(pairUser.id, message, Markup.removeKeyboard());
+        // Уведомляем обоих пользователей о соединении
+        const message =
+          "Собеседник найден! Начните общение.\n\nЧтобы закончить разговор, отправьте команду /stop.\nЧтобы сменить собеседника, отправьте команду /next.";
+        ctx.telegram.sendMessage(
+          currentUser.id,
+          message,
+          Markup.removeKeyboard()
+        );
+        ctx.telegram.sendMessage(pairUser.id, message, Markup.removeKeyboard());
 
-      resolve(true); // Пара найдена, успешно завершаем промис
+        resolve(true); // Пара найдена, успешно завершаем промис
+      } else {
+        resolve(false); // Пользователь или собеседник уже находятся в паре
+      }
     } else {
       resolve(false); // Пара не найдена, успешно завершаем промис
     }

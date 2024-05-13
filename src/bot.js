@@ -21,6 +21,7 @@ const {
   handleDeleteSearchGenderSelection,
 } = require("./handlers/searchByGenderHandler.js");
 const botCommands = require("./botCommands");
+const linkHandler = require("./handlers/linkHandler.js");
 const User = require("./models/users.js");
 require("dotenv").config();
 
@@ -57,7 +58,7 @@ bot.command("help", helpHandler);
 
 bot.command("pay", payHandler);
 bot.command("vip", vipHandler);
-bot.command("link", developmentHandler);
+bot.command("link", linkHandler);
 bot.command("settings", settingsHandler);
 bot.command("rules", developmentHandler);
 

@@ -6,7 +6,6 @@ const {
   pairs,
 } = require("../pairManagement");
 const { getMainKeyboard } = require("../utils");
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!! let
 let { userWantsToSearch } = require("./stopHandler");
 
 function nextHandler(ctx) {

@@ -2,7 +2,7 @@ const { Markup } = require("telegraf");
 const { removePair, waitingUsers } = require("../pairManagement");
 const { getMainKeyboard } = require("../utils");
 
-let userWantsToSearch = {};
+let userWantsToSearch = {}; // флаг поиска пользовалетя
 
 function stopHandler(ctx) {
   const userId = ctx.from.id;

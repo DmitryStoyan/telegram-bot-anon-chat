@@ -44,10 +44,20 @@ function getAgeKeyboard() {
     [Markup.button.callback("← Назад", "back")],
   ]);
 }
+
 function getVipKeyboard() {
   return Markup.inlineKeyboard([
     [Markup.button.callback("приобрести VIP", "buy_vip")],
     [Markup.button.callback("← отменить", "cancel_vip")],
+  ]);
+}
+
+function getPayKeyboard() {
+  return Markup.inlineKeyboard([
+    [Markup.button.callback("7 дней за 149₽ / 1.49$", "buy_pay_7day")],
+    [Markup.button.callback("1 месяц за 299₽ / 2.99$", "buy_pay_month")],
+    [Markup.button.callback("12 месяцев за 999₽ / 11.99$", "buy_pay_year")],
+    [Markup.button.callback("💎 Стать VIP", "buy_pay_year")],
   ]);
 }
 
@@ -58,4 +68,5 @@ module.exports = {
   getAgeKeyboard,
   getVipKeyboard,
   getSelectGenderKeyboard,
+  getPayKeyboard,
 };

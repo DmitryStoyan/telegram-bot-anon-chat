@@ -9,7 +9,9 @@ async function payHandler(ctx) {
     // Находим пользователя в базе данных
     const user = await User.findOne({ userId });
     if (!user) {
-      return ctx.reply("Пользователь не найден в базе данных.");
+      return ctx.reply(
+        "Пользователь не найден в базе данных, авторизуйтесь с помощью команды /start"
+      );
     }
 
     // Проверяем, оплачена ли подписка

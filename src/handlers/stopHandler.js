@@ -2,6 +2,8 @@ const { Markup } = require("telegraf");
 const { removePair, waitingUsers } = require("../pairManagement");
 const { getMainKeyboard } = require("../utils");
 
+let userWantsToSearch = {};
+
 function stopHandler(ctx) {
   const userId = ctx.from.id;
   const pairId = removePair(userId);
@@ -10,6 +12,8 @@ function stopHandler(ctx) {
     "Разговор завершен. Отправьте /next, чтобы найти нового собеседника.",
     getMainKeyboard()
   );
+
+  userWantsToSearch[userId] = false;
 
   if (pairId) {
     ctx.telegram.sendMessage(
@@ -24,4 +28,4 @@ function stopHandler(ctx) {
   }
 }
 
-module.exports = stopHandler;
+module.exports = { stopHandler, userWantsToSearch };

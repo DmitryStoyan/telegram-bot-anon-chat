@@ -1,7 +1,7 @@
 const { Telegraf } = require("telegraf");
 const startHandler = require("./handlers/startHandler");
 const nextHandler = require("./handlers/nextHandler");
-const stopHandler = require("./handlers/stopHandler");
+const { stopHandler } = require("./handlers/stopHandler");
 const helpHandler = require("./handlers/helpHandler");
 const payHandler = require("./handlers/payHandler");
 const developmentHandler = require("./handlers/developmentHandlers");
@@ -48,9 +48,7 @@ bot.context.userState = userState;
 
 bot.start(startHandler);
 
-bot.command("search", (ctx) => {
-  ctx.reply("Функция в разработке");
-});
+// bot.command("search", developmentHandler);
 bot.command("next", nextHandler);
 bot.command("stop", stopHandler);
 bot.command("interests", developmentHandler);

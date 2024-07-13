@@ -7,8 +7,8 @@ const { getVipKeyboard } = require("../utils");
 const handlePaymentExceptions = require("../exceptions/handleExeption.js");
 
 const checkout = new YooCheckout({
-  shopId: "506751",
-  secretKey: "сюда полученный сикрет",
+  shopId: process.env.YOOKASSA_SHOP_ID,
+  secretKey: process.env.YOOKASSA_SECRET_KEY,
 });
 
 const idempotenceKey = uuid.v4();

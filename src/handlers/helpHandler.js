@@ -13,7 +13,7 @@ function helpHandler(ctx) {
 /settings — изменить свой пол и другие настройки
 /rules — ознакомиться с правилами
 
-По любым вопросам обращаться к @AnonBotAdmin
+По любым вопросам обращаться к @AnonChatSpecAdmin
     `);
 }
 

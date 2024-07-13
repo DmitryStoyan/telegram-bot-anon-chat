@@ -54,6 +54,7 @@ function getVipKeyboard() {
 
 function getPayKeyboard() {
   return Markup.inlineKeyboard([
+    [Markup.button.callback("1 день за 9₽ / 0.11$", "buy_pay_7day")],
     [Markup.button.callback("7 дней за 149₽ / 1.49$", "buy_pay_7day")],
     [Markup.button.callback("1 месяц за 299₽ / 2.99$", "buy_pay_month")],
     [Markup.button.callback("12 месяцев за 999₽ / 11.99$", "buy_pay_year")],

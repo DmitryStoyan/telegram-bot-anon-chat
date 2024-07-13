@@ -73,9 +73,10 @@ bot.action("delete_gender", handleDeleteGenderSelection);
 bot.action("age", handleAgeSelection);
 bot.action("back", settingsHandler);
 bot.action("cancel_vip", stopVipHandler);
-bot.action("buy_vip", (ctx) => {
-  return ctx.replyWithInvoice(getInvoice(ctx.from.id));
-});
+// bot.action("buy_vip", (ctx) => {
+//   return ctx.replyWithInvoice(getInvoice(ctx.from.id));
+// });
+bot.action("buy_vip", developmentHandler);
 bot.action("selectMale", handleSelectMaleSelection);
 bot.action("selectFemale", handleSelectFemaleSelection);
 bot.action("delete_selectGender", handleDeleteSearchGenderSelection);
